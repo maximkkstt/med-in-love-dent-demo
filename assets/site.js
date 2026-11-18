@@ -130,28 +130,6 @@ if (teamFilters) {
     count.textContent = "Профилей в списке — " + visible;
   });
 }
-const strip = document.querySelector("#home-doctors .team-grid");
-if (strip) {
-  const paging = document.querySelector(".team-paging");
-  const [previous, next] = paging.querySelectorAll("button");
-  function updatePaging() {
-    const max = strip.scrollWidth - strip.clientWidth;
-    paging.hidden = max < 2;
-    previous.disabled = strip.scrollLeft <= 2;
-    next.disabled = strip.scrollLeft >= max - 2;
-  }
-  function move(direction) {
-    const [first, second] = strip.children;
-    if (!second) return;
-    const distance = second.getBoundingClientRect().left - first.getBoundingClientRect().left;
-    strip.scrollBy({left: direction * distance, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth"});
-  }
-  previous.addEventListener("click", () => move(-1));
-  next.addEventListener("click", () => move(1));
-  strip.addEventListener("scroll", updatePaging, {passive: true});
-  window.addEventListener("resize", updatePaging);
-  updatePaging();
-}
 const booking = document.querySelector("#booking-demo");
 if (booking) {
   const service = booking.querySelector("#visit-service");
