@@ -4,9 +4,19 @@ const navigation = document.querySelector("#navigation");
 menu.hidden = false;
 function showMenu(open) {
   menu.setAttribute("aria-expanded", String(open));
+  menu.setAttribute("aria-label", open ? "Закрыть меню" : "Меню");
   navigation.classList.toggle("open", open);
 }
-menu.addEventListener("click", () => showMenu(menu.getAttribute("aria-expanded") !== "true"));
+menu.addEventListener("click", event => {
+  const open = menu.getAttribute("aria-expanded") !== "true";
+  showMenu(open);
+  if (open && event.detail === 0) navigation.querySelector("a")?.focus();
+});
+function closeMenuOutside(event) {
+  if (menu.getAttribute("aria-expanded") === "true" && !event.target.closest(".mast")) showMenu(false);
+}
+document.addEventListener("pointerdown", closeMenuOutside);
+document.addEventListener("focusin", closeMenuOutside);
 navigation.addEventListener("click", () => showMenu(false));
 document.addEventListener("keydown", event => {
   if (event.key === "Escape" && menu.getAttribute("aria-expanded") === "true") {
