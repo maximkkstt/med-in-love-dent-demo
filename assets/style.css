@@ -311,3 +311,8 @@
   .hero-price strong { font-size: 30px; margin: 2px 0 0; }
   .hero-price svg, .hero-book { display: none; }
 }
+@media (max-width: 500px) {
+  .booking-result dt:first-child, .booking-result dd:first-of-type { grid-column: 1/-1; }
+  .booking-result dt:first-child { border: 0; padding-bottom: 0; }
+  .booking-result dd:first-of-type { padding-top: 4px; }
+}
